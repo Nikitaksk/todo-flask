@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title> Register in ToDo</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Hi , {{ current_user.name }}</h1>
+        <h2>Here is your stats:</h2>
+        <h2>Solved: {{ amount_done }}</h2>
+        <h2>Added:{{ amount_added }}</h2>
+        <h2>Percentage: {{ percentage }}% </h2>
+
+    </div>
+
+{% endblock %}

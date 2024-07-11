@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    <title> Todo</title>
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex w-75 m-auto justify-content-center my-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success p-3 " role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+
+
+
+    <div class="d-flex w-75 m-auto justify-content-center my-5">
+        <div class=" text-center w-75 bg-light rounded-3">
+            <form method="post" action="/">
+                <div class="input-group m-1 rounded-3 ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">💡</span>
+                    </div>
+                    <input type="text" name="task" class="form-control ml-2 rounded-3"
+                           placeholder="Write your ideas here..." aria-label="Username" aria-describedby="basic-addon1">
+                    <button class="btn btn-outline-primary mx-3 rounded-3" type="submit"> Add task</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column w-75 mx-auto my-5 justify-content-center ">
+        {% for task in tasks_list %}
+
+            <div class="d-inline-flex  rounded-3 p-2 bg-light border my-2">
+                <a type="button" href="/mark_done/{{ task.id }}"
+                   class="btn btn-outline-success d-flex align-items-center rounded-3">Done</a>
+                <span class="align-baseline m-auto  w-100  text-capitalize mx-5">
+            {{ task.text }}</span>
+                <span class="mx-3 my-auto  w-75 text-center">{{ task.date_added.strftime("%b %d, %Y at %H:%M") }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+
+
+
+{% endblock %}

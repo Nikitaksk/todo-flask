@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title> Register in ToDo</title>
+{% endblock %}
+
+{% block body %}
+
+
+
+    <section class="" style="height: 100vh;">
+        <div class="px-4  h-100 px-md-5  text-center align-content-center" style="">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger p-3 " role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <div class="container bg-light p-5 " style=" border-radius: 30px;">
+                <div class=" row gx-lg-5 p-3 m-3 ">
+                    <div class=" col-lg-6 mb-5 mb-lg-0">
+                        <h1 class="my-5 display-3 fw-bold ls-tight">
+                            The best place <br/>
+                            <span class="text-primary">for your ideas</span>
+                        </h1>
+                    </div>
+
+                    <div class="col-lg-6 mb-5 mb-lg-0 ">
+                        <div class="card " style=" border-radius: 20px;">
+                            <div class="card-body py-5 px-md-5 ">
+                                <h1 class="pb-3 fw-bold">Register</h1>
+                                <form method="post" action="/register">
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input type="text" id="form3Example1" class="form-control" name="username"
+                                               placeholder="Username" style=" border-radius: 10px;"/>
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input type="password" id="form3Example2" class="form-control" name="password"
+                                               placeholder="Password" style=" border-radius: 10px;"/>
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input type="password" id="form3Example2" class="form-control"
+                                               name="repeat_password"
+                                               placeholder="Repeat your password" style=" border-radius: 10px;"/>
+                                    </div>
+
+
+                                    <input type="submit" value="Register" data-mdb-ripple-init
+                                           class="btn btn-primary btn-block mb-4 px-3 rounded-3"/>
+                                    <h5>Already have an account? <a class="link-underline-opacity-0" href="/login">Log
+                                        In!</a></h5>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+{% endblock %}
