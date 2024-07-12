@@ -15,7 +15,7 @@ def profile():
     amount_done = Task.query.filter_by(added_by=current_user.id).filter_by(is_done=True).count()
     percentage = 0
     if amount_done > 0 and amount_added > 0:
-        percentage = amount_done / amount_added * 100
+        percentage = round(amount_done / amount_added * 100, 2)
     return render_template('profile.html', amount_added=amount_added, amount_done=amount_done, percentage=percentage)
 
 
