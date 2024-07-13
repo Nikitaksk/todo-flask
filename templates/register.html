@@ -5,59 +5,122 @@
 {% endblock %}
 
 {% block body %}
-    <section class="" style="height: 100vh;">
-        <div class="px-4  h-100 px-md-5  text-center align-content-center" style="">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-danger p-3 " role="alert">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <div class="container bg-light p-5 " style=" border-radius: 30px;">
-                <div class=" row gx-lg-5 p-3 m-3 ">
-                    <div class=" col-lg-6 mb-5 mb-lg-0">
-                        <h1 class="my-5 display-3 fw-bold ls-tight">
-                            The best place <br/>
-                            <span class="text-primary">for your ideas</span>
-                        </h1>
+    {#    <section class="" style="height: 100vh;">#}
+    {#        <div class="px-4  h-100 px-md-5  text-center align-content-center" style="">#}
+    {#            {% with messages = get_flashed_messages() %}#}
+    {#                {% if messages %}#}
+    {#                    {% for message in messages %}#}
+    {#                        <div class="alert alert-danger p-3 " role="alert">#}
+    {#                            {{ message }}#}
+    {#                        </div>#}
+    {#                    {% endfor %}#}
+    {#                {% endif %}#}
+    {#            {% endwith %}#}
+    {#        #}
+    {#            <div class="container bg-light p-5 " style=" border-radius: 30px;">#}
+    {#                <div class=" row gx-lg-5 p-3 m-3 ">#}
+    {#                    <div class=" col-lg-6 mb-5 mb-lg-0">#}
+    {#                        <h1 class="my-5 display-3 fw-bold ls-tight">#}
+    {#                            The best place <br/>#}
+    {#                            <span class="text-primary">for your ideas</span>#}
+    {#                        </h1>#}
+    {#                    </div>#}
+    {##}
+    {#                    <div class="col-lg-6 mb-5 mb-lg-0 ">#}
+    {#                        <div class="card " style=" border-radius: 20px;">#}
+    {#                            <div class="card-body py-5 px-md-5 ">#}
+    {#                                <h1 class="pb-3 fw-bold">Register</h1>#}
+    {#                                <form method="post" action="/register">#}
+    {#                                    <div data-mdb-input-init class="form-outline mb-4">#}
+    {#                                        <input type="text" id="form3Example1" class="form-control" name="username"#}
+    {#                                               placeholder="Username (6-20 symbols)" style=" border-radius: 10px;"/>#}
+    {#                                    </div>#}
+    {##}
+    {#                                    <div data-mdb-input-init class="form-outline mb-4">#}
+    {#                                        <input type="password" id="form3Example2" class="form-control" name="password"#}
+    {#                                               placeholder="Password (6-20 symbols)" style=" border-radius: 10px;"/>#}
+    {#                                    </div>#}
+    {##}
+    {#                                    <div data-mdb-input-init class="form-outline mb-4">#}
+    {#                                        <input type="password" id="form3Example2" class="form-control"#}
+    {#                                               name="repeat_password"#}
+    {#                                               placeholder="Repeat your password" style=" border-radius: 10px;"/>#}
+    {#                                    </div>#}
+    {##}
+    {#                                    <input type="submit" value="Register" data-mdb-ripple-init#}
+    {#                                           class="btn btn-primary btn-block mb-4 px-3 rounded-3"/>#}
+    {#                                    <h5>Already have an account? <a class="link-underline-opacity-0" href="/login">Log#}
+    {#                                        In!</a></h5>#}
+    {#                                </form>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+    <div class="container columns is-flex is-fullheight is-vcentered" style="height:90vh;">
+
+        <div class="container my-5 is-max-widescreen p-5">
+            <div class="columns is-vcentered box">
+                <div class="column is-half  is-flex is-vcentered">
+                    <div class="container has-text-centered is-size-1 is-family-sans-serif  ">
+                        <h1 class="has-text-weight-bold">The best place </h1>
+                        <h1 class="has-text-weight-bold has-text-link">for your tasks </h1>
                     </div>
 
-                    <div class="col-lg-6 mb-5 mb-lg-0 ">
-                        <div class="card " style=" border-radius: 20px;">
-                            <div class="card-body py-5 px-md-5 ">
-                                <h1 class="pb-3 fw-bold">Register</h1>
-                                <form method="post" action="/register">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input type="text" id="form3Example1" class="form-control" name="username"
-                                               placeholder="Username (6-20 symbols)" style=" border-radius: 10px;"/>
-                                    </div>
+                </div>
+                <div class="column  is-half">
+                    <form method="post" action="/register">
+                        <h1 class="has-text-weight-bold has-text-centered is-size-2 is-family-sans-serif">Register </h1>
+                        <div class="field">
+                            <label class="label">Username</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input " type="text" name="username" placeholder="Username">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
 
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input type="password" id="form3Example2" class="form-control" name="password"
-                                               placeholder="Password (6-20 symbols)" style=" border-radius: 10px;"/>
-                                    </div>
+                            </div>
+                            <p class="help ">Username should be 6-20 symbols long</p>
+                        </div>
 
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input type="password" id="form3Example2" class="form-control"
-                                               name="repeat_password"
-                                               placeholder="Repeat your password" style=" border-radius: 10px;"/>
-                                    </div>
+                        <div class="field">
+                            <label class="label">Password</label>
+                            <p class="control has-icons-left">
+                                <input class="input" name="password" type="password" placeholder="Password">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </p>
+                            <p class="help ">Password should be 6-20 symbols long</p>
+                        </div>
 
-                                    <input type="submit" value="Register" data-mdb-ripple-init
-                                           class="btn btn-primary btn-block mb-4 px-3 rounded-3"/>
-                                    <h5>Already have an account? <a class="link-underline-opacity-0" href="/login">Log
-                                        In!</a></h5>
-                                </form>
+                        <div class="field">
+                            <label class="label">Repeat your password</label>
+                            <p class="control has-icons-left">
+                                <input class="input" name="repeat_password" type="password"
+                                       placeholder="Repeat your password">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </p>
+                            <p class="help ">Password should be 6-20 symbols long</p>
+                        </div>
+
+                        <div class="field">
+                            <div class="control is-grouped">
+                                <button class="button is-link" type="submit">Register</button>
+                                <a class="button is-link is-outlined" href="/login">I have an account!</a>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
                 </div>
             </div>
+
         </div>
-    </section>
+    </div>
 
 
 {% endblock %}
