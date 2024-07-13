@@ -1,10 +1,9 @@
-body{
-    align-content: center;
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css";
+
+.box {
+	--bulma-box-shadow: 0 0em 3em -0.125em hsla(260, 100%, 50%, 0.216),
+		0 0px 0 1px hsla(300, 97%, 49%, 0.042);
 }
-input[type='text'] {
-  -moz-box-shadow: 0px 0px 4px #ffffff;
-  -webkit-box-shadow: 0px 0px 4px #ffffff;
-  box-shadow: 0px 0px 4px #ffffff;
-}
+
 
 
