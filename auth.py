@@ -23,35 +23,39 @@ def register():
     if request.method == 'GET':
         return render_template('register.html')
     else:
-        form = RegisterForm(request.form)
-        if form.validate():
-            username = form.username.data
-            if User.query.filter_by(name=username).first() != None:
-                flash('This username is already taken', 'error')
-                return redirect(url_for('auth.register'))
-            password = form.password.data
-            if password != form.repeat_password.data:
-                flash('Passwords dont match.', 'error')
-                return redirect(url_for('auth.register'))
+        try:
+            form = RegisterForm(request.form)
+            if form.validate():
+                username = form.username.data
+                if User.query.filter_by(name=username).first() != None:
+                    flash('This username is already taken', 'error')
+                    return redirect(url_for('auth.register'))
+                password = form.password.data
+                if password != form.repeat_password.data:
+                    flash('Passwords dont match.', 'error')
+                    return redirect(url_for('auth.register'))
 
-            hashed_password = bcrypt.generate_password_hash(password)
-            new_user = User(name=username, password=hashed_password)
-            try:
-                db.session.add(new_user)
-                db.session.commit()
-                login_user(new_user, remember=True)
-                flash('You are now logged in.', 'success')
-                return redirect(url_for('main.index'))
-            except  Exception as e:
-                db.session.rollback()
-                return ("Error while registering: " + str(e))
-        else:
-            if not form.username.validate():
-                flash('Username is invalid', 'error')
-                return redirect(url_for('auth.register'))
+                hashed_password = bcrypt.generate_password_hash(password)
+                new_user = User(name=username, password=hashed_password)
+                try:
+                    db.session.add(new_user)
+                    db.session.commit()
+                    login_user(new_user, remember=True)
+                    flash('You are now logged in.', 'success')
+                    return redirect(url_for('main.index'))
+                except  Exception as e:
+                    # db.session.rollback()
+                    return ("Error while registering: " + str(e))
             else:
-                flash('Password is invalid', 'error')
-                return redirect(url_for('auth.register'))
+                if not form.username.validate():
+                    flash('Username is invalid', 'error')
+                    return redirect(url_for('auth.register'))
+                else:
+                    flash('Password is invalid', 'error')
+                    return redirect(url_for('auth.register'))
+        except Exception as e:
+            flash('Please, re-check the information in form', 'error')
+            return redirect(url_for('auth.register'))
 
 
 @auth.route('/login', methods=['GET', 'POST'])

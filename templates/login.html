@@ -1,21 +1,22 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title> Log In ToDo</title>
+    <title>Log In</title>
 {% endblock %}
 
 {% block body %}
 
-{#        <div class="px-4  h-100 px-md-5  text-center align-content-center" style="">#}
-{#            {% with messages = get_flashed_messages() %}#}
-{#                {% if messages %}#}
-{#                    {% for message in messages %}#}
-{#                        <div class="alert alert-danger p-3 " role="alert">#}
-{#                            {{ message }}#}
-{#                        </div>#}
-{#                    {% endfor %}#}
-{#                {% endif %}#}
-{#            {% endwith %}#}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="notification is-link" style="position: absolute; top: 4rem; width: 100%">
+                    <button class="delete"></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <div class="container columns is-flex is-fullheight is-vcentered" style="height:90vh;">
         <div class="container my-5 is-max-widescreen p-5">
             <div class="columns is-vcentered box">

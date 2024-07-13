@@ -2,10 +2,21 @@
 
 
 {% block title %}
-    <title> Todo</title>
+    <title>Main Page</title>
 {% endblock %}
 
 {% block body %}
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notification is-success" style="position: absolute; top: 80%; left: 25%; width: 50%">
+                        <button class="delete"></button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     {#    <div class="d-flex w-75 m-auto justify-content-center my-5">#}
     {#        {% with messages = get_flashed_messages() %}#}
     {#            {% if messages %}#}
