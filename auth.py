@@ -23,40 +23,40 @@ def register():
     if request.method == 'GET':
         return render_template('register.html')
     else:
-        try:
-            form = RegisterForm(request.form)
-            if form.validate():
-                username = form.username.data
-                if User.query.filter_by(name=username).first() != None:
-                    flash('This username is already taken', 'error')
-                    return redirect(url_for('auth.register'))
-                password = form.password.data
-                if password != form.repeat_password.data:
-                    flash('Passwords dont match.', 'error')
-                    return redirect(url_for('auth.register'))
-
-                hashed_password = bcrypt.generate_password_hash(password)
-                new_user = User(name=username, password=hashed_password)
-                try:
-                    db.session.add(new_user)
-                    db.session.commit()
-                    login_user(new_user, remember=True)
-                    flash('You are now logged in.', 'success')
-                    return redirect(url_for('main.index'))
-                except  Exception as e:
-                    # db.session.rollback()
-                    return ("Error while registering: " + str(e))
-            else:
-                if not form.username.validate():
-                    flash('Username is invalid', 'error')
-                    return redirect(url_for('auth.register'))
-                else:
-                    flash('Password is invalid', 'error')
-                    return redirect(url_for('auth.register'))
-        except Exception as e:
-            flash('Please, re-check the information in form', 'error')
+        form = RegisterForm(request.form)
+        username = form.username.data
+        if User.query.filter_by(name=username).first() != None:
+            flash('This username is already taken', 'error')
             return redirect(url_for('auth.register'))
-
+        elif len(username) > 20:
+            flash('Username is too long', 'error')
+            return redirect(url_for('auth.register'))
+        elif len(username) < 6:
+            flash('Username is too short', 'error')
+            return redirect(url_for('auth.register'))
+        password = form.password.data
+        if (len(password) < 6):
+            flash('Password is too short', 'error')
+            return redirect(url_for('auth.register'))
+        elif len(password) > 20:
+            flash('Password is too long', 'error')
+            return redirect(url_for('auth.register'))
+        repeat_password = form.repeat_password.data
+        if repeat_password != password:
+            flash('Passwords do not match', 'error')
+            return redirect(url_for('auth.register'))
+        hashed_password = bcrypt.generate_password_hash(password)
+        new_user = User(name=username, password=hashed_password)
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user, remember=True)
+            flash('Welcome to DoDo', 'success')
+            return redirect(url_for('main.index'))
+        except  Exception as e:
+            # db.session.rollback()
+            flash('Something went wrong', 'error')
+            return redirect(url_for('auth.register'))
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -64,21 +64,20 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     else:
-        if form.validate():
-            username = request.form['username']
-            password = request.form['password']
-            user = User.query.filter_by(name=username).first()
-            if user and bcrypt.check_password_hash(user.password, password):
-                login_user(user)
-                flash('You are now logged in.', 'success')
-                return redirect(url_for('main.index'))
-            else:
-                flash('Invalid username or password', 'danger')
-                return redirect(url_for('auth.login'))
+        username = form.username.data
+        password = form.password.data
+        db_user = User.query.filter_by(name=username).first()
+        if db_user == None:
+            flash('Invalid username', 'error')
+            return redirect(url_for('auth.login'))
+
+        if bcrypt.check_password_hash(db_user.password, password):
+            login_user(db_user, remember=True)
+            flash('You are now logged in.', 'success')
+            return redirect(url_for('main.index'))
         else:
             flash('Invalid username or password', 'danger')
             return redirect(url_for('auth.login'))
-
 
 @auth.route('/logout')
 def logout():

@@ -9,7 +9,8 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-                <div class="notification is-link" style="position: absolute; top: 4rem; width: 100%">
+                <div class="notification is-link"
+                     style="position: absolute; top: 10%; left:25%; width: 50%; z-index: 5;">
                     <button class="delete"></button>
                     {{ message }}
                 </div>
@@ -21,7 +22,7 @@
         <div class="container my-5 is-max-widescreen p-5">
             <div class="columns is-vcentered box">
                 <div class="column is-half  is-flex is-vcentered">
-                    <div class="container has-text-centered is-size-1 is-family-sans-serif  ">
+                    <div class="container has-text-centered is-size-2 is-family-sans-serif  ">
                         <h1 class="has-text-weight-bold">Get back </h1>
                         <h1 class="has-text-weight-bold has-text-link">to your tasks </h1>
                     </div>
