@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from datetime import datetime
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_required
 from app import db
 from models import Task
@@ -24,13 +25,22 @@ def profile():
 def index():
     if request.method == 'POST':
         task = request.form.get('task')
-        new_todo = Task(text=task, added_by=current_user.id)
+        if len(task) < 1:
+            flash('Please enter a valid task', "danger")
+            return redirect(url_for('main.index'))
+        elif len(task) > 15:
+            flash('Please enter a shorter task', "danger")
+            return redirect(url_for('main.index'))
+
+        new_todo = Task(text=task, added_by=current_user.id, date_added=datetime.now())
         try:
             db.session.add(new_todo)
             db.session.commit()
+            flash("Task added successfully", "success")
             return redirect(url_for('main.index'))
         except:
-            return "Error adding task"
+            flash("danger adding task", "danger")
+            return redirect(url_for('main.index'))
     else:
         tasks = Task.query.filter(Task.added_by == current_user.id).filter(Task.is_done == False).order_by(
             Task.date_added.desc()).all()
@@ -46,4 +56,4 @@ def mark_done(task_id):
         db.session.commit()
         return redirect(url_for('main.index'))
     except:
-        return "Error completing task"
+        return "danger completing task"

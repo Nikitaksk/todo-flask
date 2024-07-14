@@ -6,44 +6,16 @@
 {% endblock %}
 
 {% block body %}
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            {% for message in messages %}
-                <div class="notification is-success" style="position: absolute; top: 80%; left: 25%; width: 50%">
+            {% for category, message in messages %}
+                <div class="notification is-{{ category }}" style="position: absolute; top: 90%; left: 10%; width: 80%;z-index: 5;">
                     <button class="delete"></button>
                     {{ message }}
                 </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
-    {#    <div class="d-flex w-75 m-auto justify-content-center my-5">#}
-    {#        {% with messages = get_flashed_messages() %}#}
-    {#            {% if messages %}#}
-    {#                {% for message in messages %}#}
-    {#                    <div class="alert alert-success p-3 " role="alert">#}
-    {#                        {{ message }}#}
-    {#                    </div>#}
-    {#                {% endfor %}#}
-    {#            {% endif %}#}
-    {#        {% endwith %}#}
-    {#    </div>#}
-
-
-    {#    <div class="d-flex w-75 m-auto justify-content-center my-5">#}
-    {#        <div class=" text-center w-75 bg-light px-2" style="border-radius: 10px;">#}
-    {#            <form method="post" class="" action="/">#}
-    {#                <div class="input-group m-2">#}
-    {#                    <div class="input-group-prepend ">#}
-    {#                        <span class="input-group-text ml-2" id="basic-addon1">💡</span>#}
-    {#                    </div>#}
-    {#                    <input type="text" name="task" class="form-control mx-2 rounded-3"#}
-    {#                           placeholder="Write your ideas here..." aria-label="Username "#}
-    {#                           aria-describedby="basic-addon1" autocomplete="off">#}
-    {#                    <button class="btn btn-outline-primary mx-2 rounded-3" type="submit"> Add task</button>#}
-    {#                </div>#}
-    {#            </form>#}
-    {#        </div>#}
-    {#    </div>#}
 
     <div class="container is-max-widescreen p-5">
         <div class="box ">
@@ -64,29 +36,11 @@
         </div>
     </div>
 
-
-
-
-
-
-    {#        <div class="d-flex flex-column w-75 mx-auto my-5 justify-content-center ">#}
-    {#            {% for task in tasks_list %}#}
-    {#                <div class="d-inline-flex rounded-3 p-2 bg-light border my-2">#}
-    {#                    <a type="button" href="/mark_done/{{ task.id }}"#}
-    {#                       class="btn btn-outline-success d-flex align-items-center rounded-3 mx-1">Done</a>#}
-    {#                    <span class="align-baseline m-auto  w-100  text-capitalize mx-5">#}
-    {#                {{ task.text }}</span>#}
-    {#                    <span class="mx-3 my-auto w-75 text-center">{{ task.date_added.strftime("%b %d, %Y at %H:%M") }}</span>#}
-    {#                </div>#}
-    {#            {% endfor %}#}
-    {#        </div>#}
-
     <div class="container is-max-widescreen px-4 ">
         {% for task in tasks_list %}
-
             <div class="box p-4 m-4">
                 <div class="columns is-mobile is-flex is-vcentered">
-                    <div class="column is-two-fifth ">{{ task.date_added.strftime("%b %d, %Y at %H:%M") }}</div>
+                    <div class="column is-two-fifth ">{{ task.date_added.strftime("%b %d, %H:%M") }}</div>
                     <div class="column is-two-fifths ">{{ task.text }}</div>
                     <div class="column is-one-fifth fit-">
                         <a href="/mark_done/{{ task.id }}" class="button is-link is-centered done-button">

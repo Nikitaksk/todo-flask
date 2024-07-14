@@ -26,24 +26,24 @@ def register():
         form = RegisterForm(request.form)
         username = form.username.data
         if User.query.filter_by(name=username).first() != None:
-            flash('This username is already taken', 'error')
+            flash('This username is already taken', 'danger')
             return redirect(url_for('auth.register'))
         elif len(username) > 20:
-            flash('Username is too long', 'error')
+            flash('Username is too long', 'danger')
             return redirect(url_for('auth.register'))
         elif len(username) < 6:
-            flash('Username is too short', 'error')
+            flash('Username is too short', 'danger')
             return redirect(url_for('auth.register'))
         password = form.password.data
         if (len(password) < 6):
-            flash('Password is too short', 'error')
+            flash('Password is too short', 'danger')
             return redirect(url_for('auth.register'))
         elif len(password) > 20:
-            flash('Password is too long', 'error')
+            flash('Password is too long', 'danger')
             return redirect(url_for('auth.register'))
         repeat_password = form.repeat_password.data
         if repeat_password != password:
-            flash('Passwords do not match', 'error')
+            flash('Passwords do not match', 'danger')
             return redirect(url_for('auth.register'))
         hashed_password = bcrypt.generate_password_hash(password)
         new_user = User(name=username, password=hashed_password)
@@ -55,7 +55,7 @@ def register():
             return redirect(url_for('main.index'))
         except  Exception as e:
             # db.session.rollback()
-            flash('Something went wrong', 'error')
+            flash('Something went wrong', 'danger')
             return redirect(url_for('auth.register'))
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -68,7 +68,7 @@ def login():
         password = form.password.data
         db_user = User.query.filter_by(name=username).first()
         if db_user == None:
-            flash('Invalid username', 'error')
+            flash('Invalid username', 'danger')
             return redirect(url_for('auth.login'))
 
         if bcrypt.check_password_hash(db_user.password, password):
